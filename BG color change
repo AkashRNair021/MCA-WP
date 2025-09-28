@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Change the Background Color with JavaScript</title>
+<script>
+function changeBodyBg(color) {
+    document.body.style.backgroundColor = color; // use backgroundColor instead of background
+}
+</script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+        transition: background-color 0.5s ease; /* smooth transition */
+    }
+    button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+    button:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+</style>
+</head>
+<body>
+    <h1>Welcome to My Page</h1>
+    <label><b>Change Webpage Background To:</b></label><br><br>
+    <button type="button" onclick="changeBodyBg('yellow')" style="background: yellow;">Yellow</button>
+    <button type="button" onclick="changeBodyBg('lime')" style="background: lime;">Lime</button>
+    <button type="button" onclick="changeBodyBg('orange')" style="background: orange;">Orange</button>
+    <button type="button" onclick="changeBodyBg('lightblue')" style="background: lightblue;">Light Blue</button>
+    <button type="button" onclick="changeBodyBg('white')" style="background: white; border: 1px solid #ccc;">Reset</button>
+</body>
+</html>
