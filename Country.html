@@ -1,66 +1,213 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Population Table</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Service Agreement</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
+        :root {
+            --gold-accent: #c5a059;
+            --deep-slate: #1c1f22;
+            --money-green: #2d3e2d;
+            --border-color: #d1d1d1;
+        }
+
+        body {
+            font-family: 'Garamond', serif; /* Classic, professional feel */
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--deep-slate);
+        }
+
+        .contract-card {
+            background: #ffffff;
+            width: 95%;
+            max-width: 900px;
+            padding: 60px;
+            position: relative;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* Currency Watermark Effect */
+        .contract-card::before {
+            content: "100";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 400px;
+            font-weight: bold;
+            color: rgba(45, 62, 45, 0.03); /* Faint green like the bill */
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .header-top {
             text-align: center;
-            padding: 8px;
+            border-bottom: 3px double var(--border-color);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-top h1 {
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .currency-badge {
+            font-family: sans-serif;
+            font-weight: bold;
+            border: 2px solid var(--deep-slate);
+            padding: 5px 15px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border-radius: 50px;
+        }
+
+        .policy-box {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.9);
+            height: 300px;
+            overflow-y: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 15px;
+            border: none;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 16px;
+            background: transparent;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--money-green);
+        }
+
+        .checkbox-row {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 0;
+        }
+
+        .checkbox-row input {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--money-green);
+        }
+
+        .submit-btn {
+            grid-column: span 2;
+            background: var(--deep-slate);
+            color: white;
+            padding: 20px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .submit-btn:hover {
+            background: var(--money-green);
+            letter-spacing: 4px;
+        }
+
+        /* Aesthetic "Serial Number" detail */
+        .serial {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-family: monospace;
+            color: #999;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
-<h3>Population Data</h3>
+<div class="contract-card">
+    <div class="header-top">
+        <div class="currency-badge">FEDERAL SERVICE NOTE</div>
+        <h1>Privacy & Terms Agreement</h1>
+        <p>This document is a legally binding instrument of service.</p>
+    </div>
 
-<table>
-    <tr>
-        <th>Country</th>
-        <th>Year</th>
-        <th>Population (In Crores)</th>
-    </tr>
-    <tr>
-        <td rowspan="3">INDIA</td>
-        <td>1998</td>
-        <td>85</td>
-    </tr>
-    <tr>
-        <td>1999</td>
-        <td>90</td>
-    </tr>
-    <tr>
-        <td>2000</td>
-        <td>100</td>
-    </tr>
-    <tr>
-        <td rowspan="3">USA</td>
-        <td>1998</td>
-        <td>30</td>
-    </tr>
-    <tr>
-        <td>1999</td>
-        <td>35</td>
-    </tr>
-    <tr>
-        <td>2000</td>
-        <td>40</td>
-    </tr>
-    <tr>
-        <td rowspan="3">UK</td>
-        <td>1998</td>
-        <td>25</td>
-    </tr>
-    <tr>
-        <td>1999</td>
-        <td>30</td>
-    </tr>
-    <tr>
-        <td>2000</td>
-        <td>35</td>
-    </tr>
-</table>
+    <div class="policy-box">
+        <h3>Article I: Confidentiality</h3>
+        <p>The client agrees that all information shared during the course of the project is strictly confidential. No data shall be disclosed to unauthorized parties without written consent.</p>
+        
+        <h3>Article II: Financial Integrity</h3>
+        <p>In alignment with our professional standards, all transactions are processed through secured channels. This agreement ensures the protection of both parties' financial and personal interests.</p>
+
+        <h3>Article III: Data Retention</h3>
+        <p>We retain client data only for the duration necessary to provide services, ensuring compliance with global privacy regulations.</p>
+    </div>
+
+    <form class="form-grid">
+        <div class="input-group">
+            <label>Full Legal Name</label>
+            <input type="text" placeholder="Authorized Signatory" required>
+        </div>
+
+        <div class="input-group">
+            <label>Execution Date</label>
+            <input type="date" required>
+        </div>
+
+        <div class="checkbox-row">
+            <input type="checkbox" id="policy-check" required>
+            <label for="policy-check">I confirm my identity and agree to the terms of the Privacy Policy.</label>
+        </div>
+
+        <button type="submit" class="submit-btn">AUTHORIZE AGREEMENT</button>
+    </form>
+
+    <div class="serial">Ref No: DESIGNS-2026-KB41524052B</div>
+</div>
 
 </body>
 </html>
