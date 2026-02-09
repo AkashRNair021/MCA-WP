@@ -1,116 +1,112 @@
 <!DOCTYPE html>
 <html lang="ml">
 <head>
-<meta charset="UTF-8">
-<title>Digital Stamp Paper Agreement (Malayalam)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<title>Malayalam Affidavit on Digital Stamp Paper</title>
 
-<!-- Libraries -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
     body {
-        margin: 0;
+        background: #f4f4f4;
         padding: 20px;
         font-family: "Noto Sans Malayalam", "Meera", sans-serif;
-        background: #f4f4f4;
     }
 
-    .container {
-        max-width: 900px;
+    .wrapper {
+        width: 800px;
         margin: auto;
-        background: #ffffff;
-        padding: 20px 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 25px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-        text-align: center;
-        font-weight: 600;
+        background: #fff;
+        padding: 20px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.14);
     }
 
     label {
-        display: block;
-        margin-top: 12px;
         font-weight: bold;
+        margin-top: 15px;
+        display: block;
     }
 
-    input, textarea, button {
+    input, textarea {
         width: 100%;
         padding: 10px;
         margin-top: 6px;
+        font-size: 16px;
         border-radius: 6px;
         border: 1px solid #ccc;
-        font-size: 16px;
     }
 
     button {
-        cursor: pointer;
-        border: none;
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
         background: #0275d8;
         color: white;
-        margin-top: 20px;
-        font-weight: bold;
-        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        margin-top: 18px;
+        cursor: pointer;
     }
 
-    button:hover {
-        opacity: .9;
-    }
-
-    /* Stamp Paper Layout */
-    #paper-wrapper {
-        margin-top: 30px;
+    #paper-container {
         width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 40px auto 0;
         position: relative;
     }
-
-    #paper img {
+    #paper-container img {
         width: 100%;
+        display: block;
     }
 
-    #content {
+    #affidavit-content {
         position: absolute;
-        top: 220px; /* Adjust as needed */
+        top: 225px;   /* PERFECT alignment with sample */
         left: 60px;
         width: 680px;
+
         font-size: 17px;
-        line-height: 1.55;
+        line-height: 1.6;
         white-space: pre-wrap;
+
+        text-align: justify;
+    }
+
+    .heading {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px;
+        text-decoration: underline;
+        margin-bottom: 18px;
     }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>ഡിജിറ്റൽ സ്റ്റാമ്പ് പേപ്പർ കരാർ ജനറേറ്റർ</h2>
+<div class="wrapper">
+    <h2 style="text-align:center;">ഡിജിറ്റൽ സ്റ്റാമ്പ് പേപ്പർ – അഫിഡവിറ്റ് ജനറേറ്റർ</h2>
 
     <label>ഉപഭോക്താവിന്റെ പേര്</label>
-    <input id="name" placeholder="പേര് നൽകുക">
+    <input id="name">
 
     <label>തീയതി</label>
-    <input id="date" type="date">
+    <input type="date" id="date">
 
     <label>തുക (₹)</label>
-    <input id="amount" type="number" placeholder="ഉദാ: 5000">
+    <input id="amount" type="number">
 
-    <label>കരാർ ഉള്ളടക്കം (Malayalam)</label>
-    <textarea id="body" rows="6" placeholder="കരാർ ഉള്ളടക്കം ഇവിടെ മലയാളത്തിൽ എഴുതുക..."></textarea>
+    <label>അഫിഡവിറ്റിന്റെ ഉള്ളടക്കം (Malayalam)</label>
+    <textarea id="body" rows="8"></textarea>
 
     <button onclick="generate()">Preview തയ്യാറാക്കുക</button>
-    <button onclick="downloadPDF()">PDF ആയി ഡൗൺലോഡ് ചെയ്യുക</button>
+    <button onclick="downloadPDF()">PDF ഡൗൺലോഡ്</button>
+</div>
 
-    <div id="paper-wrapper">
-        <div id="paper">
-            <img src="stamp.png" alt="Stamp Paper">
-            <div id="content"></div>
-        </div>
-    </div>
+<div id="paper-container">
+    <img src="stamp.png" alt="Stamp Paper">
+    <div id="affidavit-content"></div>
 </div>
 
 <script>
@@ -118,33 +114,37 @@ function generate() {
     const name = document.getElementById("name").value || "[പേര്]";
     const date = document.getElementById("date").value || "[തീയതി]";
     const amount = document.getElementById("amount").value || "[തുക]";
-    const body = document.getElementById("body").value || "[കരാർ ഉള്ളടക്കം]";
+    const body = document.getElementById("body").value || "";
 
-    document.getElementById("content").innerHTML = `
-      <h3 style="text-align:center; margin:0 0 10px 0;">കരാർ</h3>
-      <p>ഈ കരാർ <b>${date}</b> തീയതിയിൽ <b>${name}</b> എന്ന വ്യക്തിയും സർവീസ് പ്രൊവൈഡറും തമ്മിൽ ഉണ്ടാക്കിയതാണ്.</p>
-      <p>സർവീസ് ലഭിക്കുന്നതിനായി ഉപഭോക്താവ് മൊത്തം <b>₹${amount}</b> രൂപ നൽകുന്നതാണ്.</p>
-      <p>${body}</p>
-      <br><br>
-      <p>_____________________________<br>ഉപഭോക്താവിന്റെ ഒപ്പ്</p>
-      <br>
-      <p>_____________________________<br>സർവീസ് പ്രൊവൈഡറിന്റെ ഒപ്പ്</p>
+    document.getElementById("affidavit-content").innerHTML = `
+        <div class="heading">അഫിഡവിറ്റ്</div>
+
+        1. ഞാൻ <b>${name}</b>, മേൽപ്പറഞ്ഞ വ്യക്തി, <b>${date}</b> തീയതിയിലുള്ള ഈ അഫിഡവിറ്റ് സത്യപ്രതിജ്ഞ ചെയ്ത് നൽകിയിരിക്കുന്നു.
+
+        2. സേവനങ്ങൾ ലഭിക്കുന്നതിനായി ഞാൻ മൊത്തം <b>₹${amount}</b> രൂപ നൽകുന്നതാണ്.
+
+        3. കരാർ വിശദാംശങ്ങൾ:
+        ${body}
+
+        <br><br><br>
+        ___________________________<br>
+        ഒപ്പ്  
     `;
 }
 
 function downloadPDF() {
-    const element = document.getElementById("paper");
+    const capture = document.getElementById("paper-container");
 
-    html2canvas(element, { scale: 3, useCORS: true }).then(canvas => {
-        const img = canvas.toDataURL("image/png");
+    html2canvas(capture, { scale: 3 }).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
         const pdf = new jspdf.jsPDF("p", "pt", "a4");
 
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const ratio = pdfWidth / canvas.width;
-        const pdfHeight = canvas.height * ratio;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const ratio = pageWidth / canvas.width;
+        const pageHeight = canvas.height * ratio;
 
-        pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save("agreement.pdf");
+        pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+        pdf.save("affidavit.pdf");
     });
 }
 </script>
