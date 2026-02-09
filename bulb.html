@@ -1,23 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ml">
 <head>
-  <title>Bomb ON/OFF</title>
-</head>
-<body>
-  <script>
-    function turnOnOff() {
-      let image = document.getElementById("Image");
-      if (image.src.includes("bomboff.jpg")) {
-        image.src = "image/bomb.jpg";
-      } else {
-        image.src = "image/bomboff.jpg";
-      }
+<meta charset="UTF-8">
+<title>Digital Stamp Paper Agreement (Malayalam)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Noto Sans Malayalam", "Meera", sans-serif;
+        background: #f4f4f4;
     }
-  </script>
-  <img id="Image"
-  onclick="turnOnOff()"
-    src="image/bomboff.jpg"
-  />
-  <p>Click on the BOMB to turn it ON and OFF</p>
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        background: #ffffff;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    label {
+        display: block;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+    }
+
+    button {
+        cursor: pointer;
+        border: none;
+        background: #0275d8;
+        color: white;
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    button:hover {
+        opacity: .9;
+    }
+
+    /* Stamp Paper Layout */
+    #paper-wrapper {
+        margin-top: 30px;
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+    }
+
+    #paper img {
+        width: 100%;
+    }
+
+    #content {
+        position: absolute;
+        top: 220px; /* Adjust as needed */
+        left: 60px;
+        width: 680px;
+        font-size: 17px;
+        line-height: 1.55;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>ഡിജിറ്റൽ സ്റ്റാമ്പ് പേപ്പർ കരാർ ജനറേറ്റർ</h2>
+
+    <label>ഉപഭോക്താവിന്റെ പേര്</label>
+    <input id="name" placeholder="പേര് നൽകുക">
+
+    <label>തീയതി</label>
+    <input id="date" type="date">
+
+    <label>തുക (₹)</label>
+    <input id="amount" type="number" placeholder="ഉദാ: 5000">
+
+    <label>കരാർ ഉള്ളടക്കം (Malayalam)</label>
+    <textarea id="body" rows="6" placeholder="കരാർ ഉള്ളടക്കം ഇവിടെ മലയാളത്തിൽ എഴുതുക..."></textarea>
+
+    <button onclick="generate()">Preview തയ്യാറാക്കുക</button>
+    <button onclick="downloadPDF()">PDF ആയി ഡൗൺലോഡ് ചെയ്യുക</button>
+
+    <div id="paper-wrapper">
+        <div id="paper">
+            <img src="stamp.png" alt="Stamp Paper">
+            <div id="content"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function generate() {
+    const name = document.getElementById("name").value || "[പേര്]";
+    const date = document.getElementById("date").value || "[തീയതി]";
+    const amount = document.getElementById("amount").value || "[തുക]";
+    const body = document.getElementById("body").value || "[കരാർ ഉള്ളടക്കം]";
+
+    document.getElementById("content").innerHTML = `
+      <h3 style="text-align:center; margin:0 0 10px 0;">കരാർ</h3>
+      <p>ഈ കരാർ <b>${date}</b> തീയതിയിൽ <b>${name}</b> എന്ന വ്യക്തിയും സർവീസ് പ്രൊവൈഡറും തമ്മിൽ ഉണ്ടാക്കിയതാണ്.</p>
+      <p>സർവീസ് ലഭിക്കുന്നതിനായി ഉപഭോക്താവ് മൊത്തം <b>₹${amount}</b> രൂപ നൽകുന്നതാണ്.</p>
+      <p>${body}</p>
+      <br><br>
+      <p>_____________________________<br>ഉപഭോക്താവിന്റെ ഒപ്പ്</p>
+      <br>
+      <p>_____________________________<br>സർവീസ് പ്രൊവൈഡറിന്റെ ഒപ്പ്</p>
+    `;
+}
+
+function downloadPDF() {
+    const element = document.getElementById("paper");
+
+    html2canvas(element, { scale: 3, useCORS: true }).then(canvas => {
+        const img = canvas.toDataURL("image/png");
+        const pdf = new jspdf.jsPDF("p", "pt", "a4");
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const ratio = pdfWidth / canvas.width;
+        const pdfHeight = canvas.height * ratio;
+
+        pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("agreement.pdf");
+    });
+}
+</script>
+
 </body>
 </html>
